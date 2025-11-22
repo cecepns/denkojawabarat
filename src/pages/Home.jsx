@@ -321,9 +321,7 @@ const Home = () => {
                 <p className="text-lg text-gray-700 leading-relaxed">
                   PT Denko Wahana Sakti sebagai Holding Company dari DENKO GROUP
                   melakukan ekspansi dengan menambah bidang bisnis penjualan
-                  yang baru dan membuka cabang yang di Kota Surabaya pada Tahun
-                  1994, kemudian di Kota Bandung pada Tahun 1997 dengan nama PT
-                  Denko Wahana Prima.
+                  yang baru dan membuka cabang Bandung, Surabaya, Semarang, dan Warehouse di Tangerang.
                 </p>
               </div>
               <Link
