@@ -4,10 +4,6 @@ import AOS from "aos";
 import SEO from "../components/Common/SEO";
 import {
   ArrowRight,
-  CircleCheck as CheckCircle,
-  Users,
-  Award,
-  Zap,
 } from "lucide-react";
 import { bannersAPI, productsAPI } from "../utils/api";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -55,12 +51,12 @@ const Home = () => {
     };
   }, []);
 
-  const stats = [
-    { icon: Users, label: "Happy Clients", value: "500+" },
-    { icon: Award, label: "Years Experience", value: "15+" },
-    { icon: Zap, label: "Projects Completed", value: "1000+" },
-    { icon: CheckCircle, label: "Success Rate", value: "99%" },
-  ];
+  // const stats = [
+  //   { icon: Users, label: "Happy Clients", value: "500+" },
+  //   { icon: Award, label: "Years Experience", value: "15+" },
+  //   { icon: Zap, label: "Projects Completed", value: "1000+" },
+  //   { icon: CheckCircle, label: "Success Rate", value: "99%" },
+  // ];
 
   return (
     <>
@@ -321,7 +317,7 @@ const Home = () => {
                 <p className="text-lg text-gray-700 leading-relaxed">
                   PT Denko Wahana Sakti sebagai Holding Company dari DENKO GROUP
                   melakukan ekspansi dengan menambah bidang bisnis penjualan
-                  yang baru dan membuka cabang Bandung, Surabaya, Semarang, dan Warehouse di Tangerang.
+                  yang baru dan membuka cabang di Bandung, Surabaya, Semarang, dan Warehouse di Tangerang.
                 </p>
               </div>
               <Link

@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import AOS from "aos";
 import SEO from "../components/Common/SEO";
+import Loading from "../components/Common/Loading";
 import {
   Users,
   Award,
@@ -9,12 +10,58 @@ import {
   CircleCheck as CheckCircle,
   Lightbulb,
 } from "lucide-react";
+import { settingsAPI } from "../utils/api";
 import AboutImage from "../assets/about.jpg";
 
 const About = () => {
+  const [settings, setSettings] = useState({
+    company_about: '',
+  });
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     AOS.init({ duration: 1000 });
+    fetchSettings();
   }, []);
+
+  const fetchSettings = async () => {
+    try {
+      const response = await settingsAPI.get();
+      const settingsData = response.data.data || {};
+      setSettings({
+        company_about: settingsData.company_about || '',
+      });
+    } catch (error) {
+      console.error('Error fetching settings:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Format company_about text into paragraphs
+  const formatCompanyAbout = (text) => {
+    if (!text) return null;
+    // Split by double newlines first (paragraphs), then by single newlines
+    const paragraphs = text.split(/\n\n+/).filter(p => p.trim());
+    if (paragraphs.length === 0) return null;
+    
+    return paragraphs.map((paragraph, index) => {
+      const isLast = index === paragraphs.length - 1;
+      return (
+        <p 
+          key={index} 
+          className={`text-lg text-gray-600 leading-relaxed ${isLast ? 'mb-8' : 'mb-6'}`}
+        >
+          {paragraph.trim().split('\n').map((line, lineIndex, lines) => (
+            <span key={lineIndex}>
+              {line.trim()}
+              {lineIndex < lines.length - 1 && <br />}
+            </span>
+          ))}
+        </p>
+      );
+    });
+  };
 
   const values = [
     {
@@ -82,19 +129,13 @@ const About = () => {
               <h2 className="text-2xl lg:text-4xl font-bold text-gray-900 mb-6">
                 PT. Denko Wahana Sakti
               </h2>
-              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                PT. Denko Wahana Sakti adalah perusahaan yang bergerak di bidang
-                penyediaan peralatan industri dan solusi teknis untuk berbagai
-                sektor industri. Sejak didirikan pada tahun 2008, kami telah
-                melayani ratusan klien dari berbagai industri mulai dari
-                manufaktur, otomotif, hingga energi.
-              </p>
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                Dengan lokasi strategis di Kawasan Industri de Prima Terra,
-                Bandung, kami siap melayani kebutuhan industri di seluruh
-                Indonesia dengan dukungan tim ahli yang berpengalaman dan
-                berkomitmen tinggi.
-              </p>
+              {loading ? (
+                <Loading />
+              ) : (
+                <>
+                  {formatCompanyAbout(settings.company_about)}
+                </>
+              )}
               <div className="grid grid-cols-2 gap-6">
                 <div className="text-center p-4">
                   <div className="text-3xl font-bold text-primary-600 mb-2">
